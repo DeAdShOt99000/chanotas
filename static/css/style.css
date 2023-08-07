@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Rampart+One&display=swap');
+
+@font-face {
+    font-family: 'pacifico';
+    src: url('../fonts/Pacifico-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'varela round';
+    src: url('../fonts/VarelaRound-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'cookie';
+    src: url('../fonts/Cookie-Regular.ttf');
+}
+
+* {
+    font-family: 'varela round', serif;
+    font-weight: bolder;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #B1DDF1;
+    color: white;
+}
+.user {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5px 3px;
+    background-color: rgba(70, 70, 70, 0);
+}
+
+.user-logo {
+    width: 27px;
+    height: 27px;
+    background-color: rgb(70, 70, 70);
+    border: 2px solid white;
+    border-radius: 50%;
+    text-align: center;
+    padding: 3px;
+    margin: 3px;
+}
+
+.user:hover {
+    cursor: pointer;
+    background-color: rgba(70, 70, 70, 1);
+    transition: background-color 0.15s ease-out;
+}
+
+.user:hover .logout {
+    transition: opacity 0.15s ease-out;
+    opacity: 1;
+}
+
+.logout {
+    position: absolute;
+    width: 100%;
+    bottom: -30px;
+    right: 0.5px;
+    z-index: 5;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    background-color: rgba(70, 70, 70, 1);
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    opacity: 0;
+}
+
+.logout:hover {
+    color: white;
+}
+
+.login {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+}

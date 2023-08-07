@@ -1,0 +1,185 @@
+.brand {
+    font-family: cookie;
+    font-size: 4.5rem;
+    color: #064789;
+    text-shadow: 3px 3px #EBF2FA;
+    text-align: center;
+    padding: 10px;
+}
+
+.center-form input {
+    width: 100%;
+    padding: 3px;
+    background-color: rgba(66, 121, 161, 0.3);
+    border: 2px solid #427AA1;
+    border-radius: 5px;
+    transition: transform 0.3s ease-out;
+}
+
+.center-form input:hover {
+    transform: scale(105%);
+}
+
+.center-form input::placeholder {
+    color: #427AA1;
+    text-shadow: 0.5px 0.5px #EBF2FA;
+
+}
+
+form.center-form {
+    width: 550px;
+    margin: auto;
+}
+
+form.center-form header {
+    font-size: 1.5rem;
+    text-shadow: 2px 2px #064789;
+    text-align: center;
+    /* color: #427AA1; */
+    /* background-color: rgba(66, 121, 161, 0.5); */
+    padding: 5px;
+    /* border-top: 2px solid #427AA1; */
+}
+
+form.center-form fieldset {
+    position: relative;
+    border-radius: 10px;
+    border: 6px solid #427AA1;
+    background-color: rgba(66, 121, 161, 0.5);
+    padding: 20px;
+}
+
+.incorrect-cred {
+    position: absolute;
+    left: 50%;
+    top: 3px;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    background-color: tomato;
+    padding: 0 5px;
+    border: 2px solid red;
+    border-radius: 5px;
+    text-shadow: 1px 1px red;
+    transition: opacity 1.5s;
+}
+
+form.center-form fieldset > ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+form.center-form fieldset > ul > li {
+    width: 60%;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+}
+
+form.center-form input[type=submit]{
+    width: 40%;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #427AA1;
+    border-color: #ffff;
+    color: #ffff;
+    opacity: 0.7;
+}
+
+form.center-form input[type=submit]:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+form.center-form input[type="submit"]:disabled {
+    transform: scale(100%);
+    cursor: default;
+    opacity: 0.3
+}
+
+.signup-login-switch {
+    text-shadow: 1px 1px #064789;
+    text-align: center;
+    padding: 15px;
+}
+
+.signup-login-switch a {
+    color: #064789;
+    text-shadow: white 1px 1px;
+}
+
+.signup-login-switch a:hover {
+    color: #427AA1;
+    text-shadow: white 1px 1px;
+}
+
+.username-container {
+    margin: auto;
+    position: relative;
+}
+
+.check-username-div {
+    position: absolute;
+    padding-left: 2px;
+}
+
+.check-username-div span {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+
+.check-username-div img {
+    display: none;
+    width: 10px;
+}
+
+.green {
+    text-shadow: 1px 1px green;
+    color: lightgreen;
+}
+
+.red {
+    text-shadow: 1px 1px red;
+    color: tomato;
+}
+
+.email-container {
+    position: relative;
+}
+.email-container span {
+    position: absolute;
+    bottom: -6px;
+    left: 13px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+
+.password-criteria {
+    display: none;
+    text-shadow: 1px 1px #064789;
+    text-align: left;
+    list-style-position: inside;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+}
+
+#password:focus + .password-criteria {
+    display: block;
+}
+
+#re-password + span {
+    display: none;
+    font-size: 0.7em;
+    color: tomato;
+    text-shadow: 1px 1px red;
+    letter-spacing: 1.5px;
+    float: left;
+}
+
+.passed {
+    list-style-type: '\2705';
+}
+
+.failed {
+    list-style-type: '\274C';
+}

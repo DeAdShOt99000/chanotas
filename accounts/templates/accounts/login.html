@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} Log in {% endblock %}
+
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/login-signup.css' %}">
+{% endblock head %}
+    
+{% block content %}
+    <header class="brand">Chanotas</header>
+    <form class="center-form" action="" method="post">
+        {% csrf_token %}
+        <fieldset>
+            {% if incorrect %}
+            <span class="incorrect-cred">Username or password is incorrect</span>
+            {% endif %}
+            <header>- Log in -</header>
+            <ul>
+                <li>
+                    <input type="text" name="username" id="username" placeholder="Username">
+                </li>
+                <li>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                </li>
+                <li>
+                    <input type="submit" value="Log in">
+                </li>
+            </ul>
+        </fieldset>
+        <h4 class="signup-login-switch">Don't have an account? <a href="{% url 'accounts:signup' %}">Sign Up!</a> or <a href="{% url 'accounts:home' %}">Continue as Guest</a></h4>
+    </form>
+    <script>
+        document.querySelector('input[type="text"]:first-child').focus()
+        const incorrectCred = document.querySelector('.incorrect-cred')
+        if (incorrectCred){
+            setTimeout(function(){
+                incorrectCred.style.opacity = 0
+            }, 2000)
+        }
+    </script>
+
+{% endblock %}

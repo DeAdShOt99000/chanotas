@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Noter
+{% endblock title %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'noter/css/home.css' %}">
+    <link rel="icon" href="{% static 'noter/img/noter.ico' %}" type="image/x-icon">
+{% endblock head %}
+
+{% block content %}
+<div class="top-bar">
+    <button class="add-note">+</button>
+
+    <span class="app-name">Noter</span>
+    <div class="search-sort">
+        <input type="search" class="search" placeholder="Search...">
+        <div class="sort-container">
+            <select name="sort-by" id="sort-by">
+                <option value="date-created">Date Created</option>
+                <option value="date-updated" selected>Date Updated</option>
+                <option value="subject">Subject</option>
+                <option value="favorite">Favorite</option>
+            </select>
+            <input type="radio" class="sort-order" name="sort-order" id="asc">
+            <label for="asc" class="sort-order">Older to Newer</label> |
+            <input type="radio" class="sort-order" name="sort-order" id="des" checked>
+            <label for="des" class="sort-order">Newer to Older</label>
+        </div>
+    </div>
+    
+    {% comment %}
+    <div class="user" title="{{ user.first_name }} {{ user.last_name }}">
+        {% if user.is_authenticated %}
+        <div class="user-logo">{{ user.first_name|slice:"0:1"|upper }}</div>
+        <span>@{{ user }}</span>
+        <a href="{% url 'accounts:logout' %}" class="logout">Log out</a>
+        {% else %}
+        <a href="{% url 'accounts:login' %}" class="login">Log in</a>
+        <div class="user-logo"></div>
+        {% endif %}
+    </div>
+    {% endcomment %}
+        
+    {% include 'partials/user-account.html' %}
+    
+</div>
+
+<h2 class="no-notes-add-note">No Notes, <span>Add</span> your first note!</h2>
+<img src="{% static 'img/spinner.gif' %}" class="loading" alt="loading...">
+
+<div class="notes-container">
+    
+</div>
+
+<script>
+    window.csrfToken = '{{ csrf_token }}'
+</script>
+<script src="{% static 'noter/js/home.js' %}"></script>
+{% endblock content %}
+    

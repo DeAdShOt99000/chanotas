@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Chanotas {% endblock %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/login-signup.css' %}">
+{% endblock head %}
+
+
+{% block style %}
+   <style>
+        .container {
+            text-align: center;
+        }
+
+        h2 {
+            text-shadow: 1.5px 1.5px 1.5px #064789;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            padding: 3px;
+            border-radius: 5px;
+            font-size: 1.5rem;
+            transition: transform 0.5s ease-out;
+        }
+
+        a:hover {
+            transform: scale(110%)
+        }
+        
+        .noter {
+            font-family: pacifico, verdana;
+            background-color: rgb(47, 47, 47);
+            text-shadow: 1.5px 1.5px 1.5px black;
+        }
+        
+        .tasker {
+            font-family: 'Rampart One', verdana;
+            text-shadow: 1.5px 1.5px 1.5px white;
+            background-color: #ca8e5e;
+            color: #534D41;
+        }
+   </style> 
+{% endblock style %}
+    
+
+{% block content %}
+    <header class="brand">Chanotas</header>
+    <div class="container">
+        <h2>Welcome {{ user.first_name }} {{ user.last_name }}!</h2>
+        <a class="noter" href="{% url 'noter:home' %}">Noter</a>
+        <a class="tasker" href="{% url 'tasker:today-todo' %}">Tasker</a>
+    </div>
+    
+{% endblock %}

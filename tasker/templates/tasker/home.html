@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Tasker
+{% endblock %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'tasker/css/home.css' %}">
+    <link rel="icon" href="{% static 'tasker/img/tasker.ico' %}" type="image/x-icon">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <header>
+            <div class="brand">Tasker</div>
+            <div class="user" title="{{ user.first_name }} {{ user.last_name }}">
+                {% if user.is_authenticated %}
+                <div class="user-logo">{{ user.first_name|slice:"0:1"|upper }}</div>
+                <span>@{{ user }}</span>
+                <a href="{% url 'accounts:logout' %}" class="logout">Log out</a>
+                {% else %}
+                <a href="{% url 'accounts:login' %}" class="login">Log in</a>
+                <div class="user-logo"></div>
+                {% endif %}
+            </div>
+        </header>
+        
+        <div class="todo-container">
+            <div class="date-container">
+                <input type="date" name="select-date" id="select-date" value="{{ date|date:'Y-m-d' }}">
+                <h1>{{ date|date:'m/d/Y' }}</h1>
+                <h2>{{ date|date:'l' }}</h2>
+            </div>
+            <div id="tasks-container">
+                <img width="50px" src="{% static 'img/spinner.gif' %}" alt="loading...">
+            </div>
+            <div class="after-tasks-container">
+                <div class="no-avail-tasks" style="display: none;">No available tasks</div>             
+                <button class="add-task" title="Add a new Task">+ Add</button>
+                <input type="text" name="new-task" id="new-task">
+            </div>
+            <div class="done-count-container"></div>
+            <a class="prev-day pn-btn" href="{% url 'tasker:tasker' prev_day %}">Previous Day</a>
+            <a class="next-day pn-btn" href="{% url 'tasker:tasker' next_day %}">Next Day</a>
+        </div>
+    </div>
+
+    <script>
+        window.csrf = '{{ csrf_token }}'
+    </script>
+    <script src="{% static 'tasker/js/home.js' %}"></script>
+{% endblock %}

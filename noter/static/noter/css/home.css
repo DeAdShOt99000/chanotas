@@ -1,0 +1,344 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap'); */
+
+body {
+    background-color: rgb(150, 150, 150);
+}
+
+.app-name {
+    font-family: pacifico, verdana;
+    font-size: 1.5rem;
+    text-shadow: 1.5px 1.5px 1.5px rgb(0, 0, 0);
+}
+
+input, button, textarea, select {
+    font-family: 'Varela Round', serif;
+}
+
+.user:hover {
+    border-radius: 5px;
+}
+
+.sort-container {
+    white-space: nowrap;
+}
+
+.search-sort {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+
+#sort-by {
+    cursor: pointer;
+    background-color: rgb(70, 70, 70);
+    color: white;
+    border-radius: 5px;
+}
+
+.sort-order {
+    font-size: 12px;
+}
+
+input.sort-order {
+    display: none;
+}
+
+input.sort-order + label {
+    cursor: pointer;
+    padding: 5px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input.sort-order:checked + label {
+    background-color: rgb(70, 70, 70);
+    border-radius: 5px;
+    color: white;
+    text-shadow: rgb(47, 47, 47) 3px 3px 4px;
+}
+
+.search {
+    width: 60%;
+    padding: 3px;
+    background-color: rgb(70, 70, 70);
+    color: white;
+    border: 2px solid white;
+    border-radius: 7px;
+    opacity: 0.5;
+}
+
+.search::placeholder {
+    color: white;
+}
+
+.search:hover, .search:focus {
+    opacity: 1;
+}
+
+.top-bar {
+    padding: 0 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(47, 47, 47);
+}
+
+.top-bar .add-note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: serif;
+    font-size: 3rem;
+    font-weight: bolder;
+
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 9;
+
+    width: 50px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    background-color: rgb(70, 70, 70);
+    opacity: 0.6;
+}
+
+.top-bar .add-note:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.notes-container {
+    min-height: 50px;
+    background-color: rgb(129, 129, 129);
+    border-left: 3.5px solid rgb(47, 47, 47);
+    border-right: 3.5px solid rgb(47, 47, 47);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 0.8rem;
+    color: black;
+    padding: 10px;
+    width: 98%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.note-element {
+    overflow: hidden;
+    max-width: 600px;
+    border: 3.5px solid rgb(47, 47, 47);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 10px 20px;
+    background-color: lightgray;
+    /* width: 450px; */
+    height: 212px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease-out;
+}
+
+.note-element:hover {
+    transform: scale(105%);
+}
+
+.note-subject {
+    background-color: gray;
+    border-bottom: 3.5px solid rgb(47, 47, 47);
+    font-family: 'Trebuchet MS';
+    padding: 5px;
+    color: white;
+    text-shadow: black 1px 1px 1px;
+}
+
+.edit-subject {
+    display: none;
+    width: 99%;
+    height: 21px;
+    margin: 0;
+}
+
+.note-text {
+    padding: 5px;
+    height: 150px;
+    font-size: 0.8em;
+    overflow: auto;
+}
+
+.edit-note {
+    display: none;
+    height: 160px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.note-dates {
+    position: relative;
+    /* top: 10px; */
+    font-size: 9px;
+    padding: 2px 5px;
+    background-color: black;
+    color: gray;
+}
+
+.note-dates .date-text {
+    color: white;
+}
+
+.sc-btns {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    right: 5px;
+    top: 1px;
+}
+
+.sc-btns button {
+    margin: 0 3px;
+}
+
+.star-logo {
+    position: absolute;
+    top: 3.5px;
+    right: 2px;
+    width: 19px;
+    padding: 2px;
+}
+
+.star-logo:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: darkgray;
+}
+
+.delete-logo {
+    width: 19px;
+    padding: 2px;
+    position: absolute;
+    top: 3px;
+    right: 27px;
+}
+
+.delete-logo:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: darksalmon;
+}
+
+.note-form .note-dates {
+    text-align: center;
+    font-size: 1rem;
+}
+
+#subject {
+    height: 20px;
+    width: 300px;
+    margin-bottom: 5px;
+}
+
+
+.notes-container .note-form {
+    position: relative;
+}
+
+.green-btn, .red-btn {
+    position: absolute;
+    top: 2px;
+}
+
+.green-btn {
+    right: 5px;
+}
+
+.red-btn {
+    right: 60px;
+}
+
+.note-form .new-note {
+    height: 30px;
+    border-bottom: 3.5px solid rgb(47, 47, 47);
+}
+
+#subject {
+    width: 100%;
+    height: 30px;
+}
+
+.green-btn {
+    border-radius: 5px;
+    border-style: solid;
+    border-color: green;
+    color: green;
+    background-color: cadetblue;
+}
+
+.red-btn {
+    border-radius: 5px;
+    border-style: solid;
+    border-color: red;
+    color: red;
+    background-color:darksalmon;
+}
+
+.green-btn:hover {
+    cursor: pointer;
+    border-color: cadetblue;
+    color: cadetblue;
+    background-color: green;
+}
+
+.red-btn:hover {
+    cursor: pointer;
+    border-color: darksalmon;
+    color: darksalmon;
+    background-color: red;
+}
+
+.loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+}
+
+.no-notes-add-note {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: black;
+    padding: 10px;
+    display: none;
+}
+
+.no-notes-add-note span {
+    color: white;
+}
+
+.no-notes-add-note span:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.highlight {
+    background-color:chartreuse;
+}
+
+@media screen and (max-width: 710px){
+    .search-sort {
+        flex-direction: column;
+    }
+
+    .search {
+        margin: 7px;
+    }
+
+    .sort-container {
+        margin: 7px;
+    }
+}

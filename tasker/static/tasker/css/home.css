@@ -1,0 +1,187 @@
+
+body {
+    background-color: #ca8f5e6a;
+}
+
+.container {
+    border-radius: 15px;
+    overflow: hidden;
+    width: 500px;
+    margin: 10px auto;
+    background-color: #ca8f5ea7;
+    box-shadow: 5px 5px #534D41;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    margin-bottom: 5px;
+}
+
+.brand {
+    font-family: 'Rampart One';
+    font-size: 4rem;
+    text-align: center;
+    color: #534D41;
+    padding: 5px;
+    text-shadow: 2px 2px white;
+    background-color: #ca8e5e;
+}
+
+.user {
+    background-color: #ca8f5ed4;
+}
+
+.user:hover {
+    background-color: #cb9971;
+}
+
+.logout {
+    bottom: -29.5px;
+    color: #534D41;
+    background-color: #ca8f5ea7;
+}
+
+.todo-container {
+    position: relative;
+    color: black;
+    overflow: auto;
+    text-align: center;
+}
+
+.date-container {
+    border-radius: 10px;
+    margin: auto;
+    width: 250px;
+    padding: 5px;
+}
+
+.date-container:hover {
+    cursor: pointer;
+    background-color: #ca8f5ed4;
+}
+
+.date-container h1, .date-container h2 {
+    color: #534D41;
+    font-family: 'Rampart One';
+    font-size: 2rem;
+}
+
+.date-container:hover h1, .date-container:hover h2 {
+    color: rgb(225, 223, 223);
+}
+
+.date-container input {
+    display: none;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    border: 2px solid #534D41;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#tasks-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+}
+
+.single-task-cont {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.single-task-cont:hover {
+    cursor: pointer;
+}
+
+.all-tasks {
+    vertical-align: middle;
+}
+
+.all-tasks + label {
+    padding-left: 5px;
+    max-width: 440px;
+    word-wrap: break-word;
+}
+
+.all-tasks:hover, .all-tasks + label:hover {
+    cursor: pointer;
+}
+
+.rm-task {
+    visibility: hidden;
+    font-size: 0.5rem;
+    margin-left: 5px;
+    vertical-align: middle;
+    padding: 2px;
+    border-radius: 50%;
+    border-style: none;
+    background-color: transparent;
+}
+
+.rm-task:hover {
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.single-task-cont:hover .rm-task {
+    visibility: visible;
+}
+
+.after-tasks-container {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.after-tasks-container #new-task {
+    border-radius: 5px;
+    display: none;
+}
+
+.add-task {
+    font-size: 0.8rem;
+    padding: 2px 4px;
+    height: 20px;
+    border-radius: 5px;
+    color: green;
+    background-color: transparent;
+    border: none;
+    opacity: 0.7;
+}
+
+.add-task:hover {
+    cursor: pointer;
+    background-color: rgba(0, 128, 0, 0.2);
+    opacity: 1;
+}
+
+.pn-btn {
+    text-decoration: none;
+    font-family: 'Rampart One';
+    padding: 10px;
+    color: #534D41;
+    opacity: 0.5;
+}
+
+.pn-btn:hover {
+    opacity: 1;
+}
+
+.prev-day {
+    float: left;
+}
+
+.next-day {
+    float: right;
+}
+
+.done-count-container {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+    font-style: italic;
+}
