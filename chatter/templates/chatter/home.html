@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Chatter{% endblock title %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'chatter/css/home.css' %}">
+    <link rel="icon" href="{% static 'chatter/img/chatter.ico' %}" type="image/x-icon">
+    <script src="{% static 'chatter/js/home.js' %}" defer></script>
+{% endblock head %}
+    
+{% block content %}
+<div id="top">
+    <div class="app-name-cont">
+        <div class="chatter-flex">Chatter</div>
+        <div class="mask"></div>
+        <div class="by-chanotas-cont">
+            <span class="by">by </span>
+            <a class="chanotas" href="{% url 'home' %}">Chanotas</a>
+        </div>
+    </div>
+    <input id="search-flex" class="text-bar" type="search" placeholder="Search...">
+    {% include 'partials/user-account.html' with next_url=request.path %}
+</div>
+
+<h2 class="chat-title">Chats</h2>
+
+<div id="chats">
+    <img class="spinner" src="{% static 'img/spinner.gif' %}" alt="loading...">
+</div> <!--JSON stuff-->
+
+<button class="add-friend-btn" title="Add Friend">+</button>
+
+<div id="add-friend-box" style="display: none;">
+    <div class="adding-method-cont">
+        <button id="by-email" class="adding-method chosen-method">Add by Email</button>
+        <button id="by-username" class="adding-method">Add by Username</button>
+    </div>
+    <form class="add-friend-form" action="" method="post">
+        {% csrf_token %}
+        <div class="inputs-cont">
+            <input id="add-friend-email" class=" adding-text-bar text-bar" type="email" name="email" placeholder="Email...">
+            <input id="add-friend-username" class="adding-text-bar text-bar" style="display: none;" type="text" name="username" placeholder="Username...">
+            <span class="validation"></span>
+        </div>
+        <input type="submit" value="Add" disabled>
+    </form>
+</div>
+
+{% load static %}
+<script>
+    window.csrf = '{{ csrf_token }}'
+    window.spinner = "{% static 'img/spinner.gif' %}"
+    window.homeJsonLink = "{% url 'chatter:home-json' %}"
+    window.checkUserEmailLink = "{% url 'accounts:check-user-email' %}"
+</script>
+{% endblock content %}
+    

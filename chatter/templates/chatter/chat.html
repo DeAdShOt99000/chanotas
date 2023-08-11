@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}{{ friend.first_name|title }}'s Chat{% endblock title %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'chatter/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'chatter/css/chat.css' %}">
+    <link rel="icon" href="{% static 'chatter/img/chatter.ico' %}" type="image/x-icon">
+    <script src="{% static 'chatter/js/chat.js' %}" defer></script>
+{% endblock head %}
+
+{% block content %}
+<div class="all-container">
+    <div class="top-bar">
+        <a href="{% url 'chatter:home' %}" id="all-friends">&#8592;</a>
+        <div class="friend-chat-cont">
+            <div class="friend-logo-cont" style="background-color: #{{ user_color }};">
+                <div class="friend-logo">{{ friend.first_name|slice:"0:1"|upper }}{{ friend.last_name|slice:"0:1"|upper }}</div>
+            </div>
+            <div class="friend-chat">{{ friend.first_name|title }} {{ friend.last_name|title }}</div>
+            <span class="friend-user">@{{ friend.username }}</span>
+        </div>
+    </div>
+    <div id="chat-box"></div>
+    <div class="bottom">
+        <input class="text-bar" type="text" name="text-message" id="text-message" placeholder="Type a message...">
+        <button id="send">&#10148;</button>
+        <div id="to-bottom-btn-container">
+            <div id="msg-circle"></div>
+            <button id="to-bottom-btn">
+                &darr;
+            </button>
+        </div>
+    </div>
+</div>
+{% load static %}
+
+<script>
+    window.csrf = '{{ csrf_token }}'
+    window.userId = '{{ user.id }}'
+    window.friendId = '{{ friend.id }}'
+    window.tagAsViewedLink = "{% url 'chatter:tag-as-viewed' %}"
+    window.chatJson = "{% url 'chatter:chat-json' friend.id %}"
+</script>
+{% endblock content %}
+    
+    

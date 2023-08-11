@@ -1,10 +1,40 @@
 .brand {
-    font-family: cookie;
     font-size: 4.5rem;
-    color: #064789;
-    text-shadow: 3px 3px #EBF2FA;
     text-align: center;
     padding: 10px;
+}
+
+.brand .chanotas {
+    font-family: cookie;
+    color: #064789;
+    text-shadow: 3px 3px #EBF2FA;
+    text-decoration: none;
+}
+
+.brand .chatter {
+    font-family: Amita, verdana;
+    color: #254441;
+    text-shadow: 3px 3px white;
+}
+
+.brand .noter {
+    font-family: pacifico, verdana;
+    color: white;
+    text-shadow: 3px 3px black;
+}
+
+.brand .tasker {
+    font-family: 'Rampart One', verdana;
+    color: #534D41;
+    text-shadow: 2px 2px white;
+}
+
+.brand .by {
+    font-family: monospace;
+    font-size: 1.3rem;
+    vertical-align: middle;
+    color: gray;
+    text-shadow: none;
 }
 
 .center-form input {

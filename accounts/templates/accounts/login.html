@@ -4,11 +4,22 @@
 
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/login-signup.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/login-signup.css' %}">
 {% endblock head %}
     
 {% block content %}
-    <header class="brand">Chanotas</header>
+    <header class="brand">
+        
+        {% if 'chatter' in next %}
+        <span class="chatter">Chatter <span class="by">&nbsp;by&nbsp;</span></span>
+        {% elif 'noter' in next %}
+        <span class="noter">Noter <span class="by">&nbsp;by&nbsp;</span></span>
+        {% elif 'tasker' in next %}
+        <span class="tasker">Tasker <span class="by">&nbsp;by&nbsp;</span></span>
+        {% endif %}
+            
+        <a class="chanotas" href="{% url 'home' %}">Chanotas</a>
+    </header>
     <form class="center-form" action="" method="post">
         {% csrf_token %}
         <fieldset>
@@ -28,7 +39,7 @@
                 </li>
             </ul>
         </fieldset>
-        <h4 class="signup-login-switch">Don't have an account? <a href="{% url 'accounts:signup' %}">Sign Up!</a> or <a href="{% url 'accounts:home' %}">Continue as Guest</a></h4>
+        <h4 class="signup-login-switch">Don't have an account? <a href="{% url 'accounts:signup' %}{% if next %}?next={{ next }}{% endif %}">Sign Up!</a></h4>
     </form>
     <script>
         document.querySelector('input[type="text"]:first-child').focus()

@@ -3,17 +3,16 @@ from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Notes
 
 import json
 # Create your views here.
 
-class NotesView(View):
+class NotesView(LoginRequiredMixin, View):
     def get(self, request):
-        if request.user.is_authenticated:
-            return render(request, 'noter/home.html')
-        return redirect(reverse('accounts:login') + f'?next={request.path}')
+        return render(request, 'noter/home.html')
     def post(self, request):
         data = json.loads(request.body)
         

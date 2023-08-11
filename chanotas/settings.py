@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'accounts.UserF'
+
+LOGIN_URL = '/accounts/login'
 
 # Application definition
 
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'noter',
     'tasker',
+    'chatter',
 ]
 
 MIDDLEWARE = [

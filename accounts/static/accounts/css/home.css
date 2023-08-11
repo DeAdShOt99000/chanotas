@@ -1,0 +1,106 @@
+.user {
+    position: absolute;
+    right: 0;
+    width: fit-content;
+    padding: 3px;
+    justify-self: end;
+    border-bottom-left-radius: 5px;
+}
+
+.user span {
+    font-size: 1.5rem;
+    text-shadow: 1px 1px #064789;
+}
+
+.user:hover, .user a{
+    background-color: #064789a7;
+}
+
+.all-container {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    text-align: center;
+    height: 100vh;
+}
+
+h2 {
+    text-shadow: 1.5px 1.5px 1.5px #064789;
+    margin-bottom: 40px;
+}
+
+h2 span {
+    color: #064789;
+    text-shadow: 1.5px 1.5px 1.5px white;
+    letter-spacing: 2px;
+}
+
+.apps-cont {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.apps-cont a {
+    flex: 1;
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 5vw;
+}
+
+.apps-cont span {
+    transition: font-size 0.5s ease-out;
+}
+
+.apps-cont div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease-out;
+    opacity: 0;
+}
+
+.apps-cont a:hover span {
+    font-size: 7vw;
+}
+
+.apps-cont a:hover div {
+    opacity: 1;
+}
+
+.chatter {
+    background-color: #a3d729b8;
+    position: relative;
+}
+
+.chatter span {
+    font-family: Amita, verdana;
+    color: #254441;
+    text-shadow: 1.5px 1.5px 1.5px white;
+}
+
+.noter {
+    background-color: rgb(47, 47, 47);
+    position: relative;
+
+}
+
+.noter span {
+    font-family: pacifico, verdana;
+    text-shadow: 1.5px 1.5px 1.5px black;
+}
+
+.tasker {
+    background-color: #ca8e5e;
+    position: relative;
+
+}
+
+.tasker span {
+    font-family: 'Rampart One', verdana;
+    text-shadow: 1.5px 1.5px 1.5px white;
+    color: #534D41;
+}

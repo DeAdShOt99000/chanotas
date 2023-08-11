@@ -18,13 +18,34 @@ header {
     margin-bottom: 5px;
 }
 
+.app-name-cont {
+    background-color: #ca8e5e;
+    height: 100px;
+}
+
+.app-name-cont .mask{
+    bottom: 19px;
+    background-color: #ca8e5e;
+}
+
 .brand {
+    position: relative;
+    z-index: 3;
+    cursor: pointer;
     font-family: 'Rampart One';
     font-size: 4rem;
     text-align: center;
     color: #534D41;
     padding: 5px;
     text-shadow: 2px 2px white;
+    background-color: #ca8e5e;
+    width: fit-content;
+    height: 83px;
+    margin: auto;
+}
+
+.by-chanotas-cont {
+    bottom: 18px;
     background-color: #ca8e5e;
 }
 

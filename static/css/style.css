@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Rampart+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amita&family=Lobster&family=Rampart+One&display=swap');
 
 @font-face {
     font-family: 'pacifico';
@@ -26,6 +26,7 @@
 body {
     background-color: #B1DDF1;
     color: white;
+    height: 100vh;
 }
 .user {
     position: relative;
@@ -81,4 +82,60 @@ body {
     color: white;
     text-decoration: none;
     padding: 5px;
+}
+
+.app-name-cont {
+    position: relative;
+}
+
+.by-chanotas-cont {
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+    z-index: 1;
+    text-align: center;
+    width: 105px;
+    padding: 0 5px 5px 5px;
+    background-color: rgb(47, 47, 47);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: transform 0.3s ease-out;
+}
+
+.app-name-cont .mask {
+    position: absolute;
+    z-index: 2;
+    bottom: 7px;
+    width: 105px;
+    height: 50px;
+    background-color: rgb(47, 47, 47);
+}
+
+.app-name-cont:hover .by-chanotas-cont{
+    transform: translateY(28px);
+}
+
+.by-chanotas-cont .by {
+    font-family: monospace;
+    font-size: 1rem;
+    color: lightgray;
+    text-shadow: none;
+    /* vertical-align: middle; */
+}
+
+.by-chanotas-cont .chanotas {
+    font-family: cookie, verdana;
+    font-size: 1.5rem;
+    color: #064789;
+    text-shadow: 1.3px 1.3px #EBF2FA;
+    text-decoration: none;
+}
+
+.by-chanotas-cont .light {
+    color: #EBF2FA;
+    text-shadow: 1.3px 1.3px #064789;
+}
+
+.by-chanotas-cont .chanotas:hover {
+    text-decoration: underline;
 }

@@ -13,17 +13,15 @@ Tasker
 {% block content %}
     <div class="container">
         <header>
-            <div class="brand">Tasker</div>
-            <div class="user" title="{{ user.first_name }} {{ user.last_name }}">
-                {% if user.is_authenticated %}
-                <div class="user-logo">{{ user.first_name|slice:"0:1"|upper }}</div>
-                <span>@{{ user }}</span>
-                <a href="{% url 'accounts:logout' %}" class="logout">Log out</a>
-                {% else %}
-                <a href="{% url 'accounts:login' %}" class="login">Log in</a>
-                <div class="user-logo"></div>
-                {% endif %}
+            <div class="app-name-cont">
+                <div class="brand">Tasker</div>
+                <div class="mask"></div>
+                <div class="by-chanotas-cont">
+                    <span class="by">by </span>
+                    <a class="chanotas" href="{% url 'home' %}">Chanotas</a>
+                </div>
             </div>
+            {% include 'partials/user-account.html' with next_url=request.path %}
         </header>
         
         <div class="todo-container">

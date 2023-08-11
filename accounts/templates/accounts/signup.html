@@ -3,21 +3,33 @@
 
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/login-signup.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/login-signup.css' %}">
+    <script src="{% static 'accounts/js/signup.js' %}" defer></script>
 {% endblock head %}
 
 {% block content %}
-    <header class="brand">Chanotas</header>
+    <header class="brand">
+
+        {% if 'chatter' in next %}
+        <span class="chatter">Chatter <span class="by">&nbsp;by&nbsp;</span></span>
+        {% elif 'noter' in next %}
+        <span class="noter">Noter <span class="by">&nbsp;by&nbsp;</span></span>
+        {% elif 'tasker' in next %}
+        <span class="tasker">Tasker <span class="by">&nbsp;by&nbsp;</span></span>
+        {% endif %}
+
+        <a class="chanotas" href="{% url 'home' %}">Chanotas</a>
+    </header>
     <form class="center-form" action="" method="post">
         <fieldset>
             {% csrf_token %}
             <header>- Sign Up! -</header>
             <ul>
                 <li>
-                    <input type="text" name="firstname" id="firstname" placeholder="First name" required>
+                    <input type="text" name="firstname" id="firstName" placeholder="First name" required>
                 </li>
                 <li>
-                    <input type="text" name="lastname" id="lastname" placeholder="Last name" required>
+                    <input type="text" name="lastname" id="lastName" placeholder="Last name" required>
                 </li>
                 <li class="username-container">
                     <input type="text" name="username" id="username" placeholder="Username" required>
@@ -50,209 +62,12 @@
                 </li>
             </ul>
         </fieldset>
-        <h4 class="signup-login-switch">Already have an account? <a href="{% url 'accounts:login' %}">Log in!</a></h4>
+        <h4 class="signup-login-switch">Already have an account? <a href="{% url 'accounts:login' %}{% if next %}?next={{ next }}{% endif %}">Log in!</a></h4>
     </form>
-    <!-- <button onclick="press()">Press Me!</button> -->
+    <!-- <button class="press-me">Press Me!</button> -->
     <script>
-
-        function press(){console.log(checkAll)}
-
-        document.querySelector('input[type="text"]:first-child').focus()
-        const checkAll = {
-            firstName: 0,
-            lastName: 0,
-            username: 0,
-            email: 0,
-            password: 0,
-            rePassword: 0
-        }
-
-        function checkName(firstLast){
-            if (window[firstLast].value.length >= 1){
-                window[firstLast].style.borderColor = 'green'
-                checkAll[firstLast] = 1
-            } else {
-                window[firstLast].style.borderColor = 'tomato'
-                checkAll[firstLast] = 0
-            }
-            updateSubmitState()
-        }
-
-        function updateSubmitState(){
-            if (Object.values(checkAll).includes(0)){
-                document.querySelector('input[type="submit"]').disabled = true
-            } else {
-                document.querySelector('input[type="submit"]').disabled = false
-            }
-        }
-
-        var firstName = document.getElementById('firstname')
-        var lastName = document.getElementById('lastname')
-
-        firstName.addEventListener('input', function(){
-            checkName('firstName')
-        })
-
-        lastName.addEventListener('input', function(){
-            checkName('lastName')
-        })
-
-        const checkDiv = document.querySelector('.check-username-div')
-        const usernameInp = document.getElementById('username')
-        usernameInp.addEventListener('input', function(){
-            setTimeout(function(){
-                if (usernameInp.value.length > 0){
-                    checkDiv.querySelector('img').style.display = 'inline'
-                    fetch("{% url 'accounts:check-user-email' %}", {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            username: usernameInp.value
-                        }),
-                        headers: {
-                            'Content-type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        checkDiv.querySelector('img').style.display = 'none'
-                        const msg = data['message']
-                        if (msg){
-                            // usernameInp.removeAttribute('style')
-                            usernameInp.setAttribute('style', 'border-color: green;')
-                            checkDiv.querySelector('span').className = 'green'
-                            checkDiv.querySelector('span').innerHTML = 'Username is available&#9989;'
-                            checkAll.username = 1
-                        } else {
-                            usernameInp.setAttribute('style', 'border-color: tomato;')
-                            checkDiv.querySelector('span').className = 'red'
-                            checkDiv.querySelector('span').innerHTML = 'username was already taken&#10060;'
-                            checkAll.username = 0
-                        }
-                    })
-                } else {
-                    usernameInp.setAttribute('style', 'border-color: tomato;')
-                    checkDiv.querySelector('span').innerText = ''
-                    checkAll.username = 0
-                }
-                updateSubmitState()
-            }, 50)
-        })
-
-        const email = document.getElementById('email')
-        email.addEventListener('input', function(){
-            if ( /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email.value)){
-                fetch("{% url 'accounts:check-user-email' %}", {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        email: email.value
-                    }),
-                    headers: {
-                        'Content-type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const msg = data['message']
-                    const emailSpan = document.querySelector('#email + span')
-                    if (msg) {
-                        emailSpan.className = 'green'
-                        emailSpan.innerHTML = 'Email is available&#9989;'
-                        email.style.borderColor = 'green'
-                        checkAll.email = 1
-                    } else {
-                        emailSpan.className = 'red'
-                        emailSpan.innerHTML = 'Email was already taken&#10060'
-                        email.style.borderColor = 'tomato'
-                        checkAll.email = 0
-                    }
-                })
-            } else {
-                email.style.borderColor = 'tomato'
-                checkAll.email = 0
-            }
-            updateSubmitState()
-        })
-
-        const passwordCriteria = document.querySelector('.password-criteria')
-        const passwordInp = document.getElementById('password')
-        passwordInp.addEventListener('input', function(){
-            let redBorder = 0
-            if (/[a-z]/.test(passwordInp.value)){
-                document.getElementById('lc').className = 'passed'
-            } else {
-                document.getElementById('lc').className = 'failed'
-                redBorder++
-            }
-            
-            if (/[A-Z]/.test(passwordInp.value)){
-                document.getElementById('uc').className = 'passed'
-            } else {
-                document.getElementById('uc').className = 'failed'
-                redBorder++
-            }
-
-            if (/[0-9]/.test(passwordInp.value)){
-                document.getElementById('n').className = 'passed'
-            } else {
-                document.getElementById('n').className = 'failed'
-                redBorder++
-            }
-
-            if (/[^a-zA-Z0-9\s]/.test(passwordInp.value)){
-                document.getElementById('s').className = 'passed'
-            } else {
-                document.getElementById('s').className = 'failed'
-                redBorder++
-            }
-
-            if (!/\s/.test(passwordInp.value)){
-                document.getElementById('ws').className = 'passed'
-            } else {
-                document.getElementById('ws').className = 'failed'
-                redBorder++
-            }
-
-            if (passwordInp.value.length >= 8){
-                document.getElementById('len').className = 'passed'
-            } else {
-                document.getElementById('len').className = 'failed'
-                redBorder++
-            }
-
-            if (redBorder){
-                passwordInp.style.borderColor = 'tomato'
-                checkAll.password = 0
-            } else {
-                passwordInp.style.borderColor = 'green'
-                // passwordInp.removeAttribute('style')
-                checkAll.password = 1
-            }
-            updateSubmitState()
-        })
-
-        const rePassword = document.getElementById('re-password')
-        rePassword.addEventListener('input', function(){
-            if (passwordInp.value == rePassword.value){
-                rePassword.style.borderColor = 'green'
-                // rePassword.removeAttribute('style')
-                document.querySelector('#re-password + span').style.display = 'none'
-                checkAll.rePassword = 1
-            } else {
-                rePassword.style.borderColor = 'tomato'
-                document.querySelector('#re-password + span').style.display = 'inline'
-                checkAll.rePassword = 0
-            }
-            updateSubmitState()
-        })
-
-        document.querySelector('form.center-form').addEventListener('submit', function(event){
-            if (Object.values(checkAll).includes(0)){
-                event.preventDefault()
-                console.log('Review...')
-            }
-        })
+        window.csrf = '{{ csrf_token }}'
+        window.checkUserEmail = "{% url 'accounts:check-user-email' %}"
     </script>
 
 {% endblock %}

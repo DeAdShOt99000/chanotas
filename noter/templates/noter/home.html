@@ -13,9 +13,14 @@
 
 {% block content %}
 <div class="top-bar">
-    <button class="add-note">+</button>
-
-    <span class="app-name">Noter</span>
+    <div class="app-name-cont">
+        <span class="app-name">Noter</span>
+        <div class="mask"></div>
+        <div class="by-chanotas-cont">
+            <span class="by">by </span>
+            <a class="chanotas light" href="{% url 'home' %}">Chanotas</a>
+        </div>
+    </div>
     <div class="search-sort">
         <input type="search" class="search" placeholder="Search...">
         <div class="sort-container">
@@ -31,21 +36,7 @@
             <label for="des" class="sort-order">Newer to Older</label>
         </div>
     </div>
-    
-    {% comment %}
-    <div class="user" title="{{ user.first_name }} {{ user.last_name }}">
-        {% if user.is_authenticated %}
-        <div class="user-logo">{{ user.first_name|slice:"0:1"|upper }}</div>
-        <span>@{{ user }}</span>
-        <a href="{% url 'accounts:logout' %}" class="logout">Log out</a>
-        {% else %}
-        <a href="{% url 'accounts:login' %}" class="login">Log in</a>
-        <div class="user-logo"></div>
-        {% endif %}
-    </div>
-    {% endcomment %}
-        
-    {% include 'partials/user-account.html' %}
+    {% include 'partials/user-account.html' with next_url=request.path %}
     
 </div>
 
@@ -55,6 +46,7 @@
 <div class="notes-container">
     
 </div>
+<button class="add-note" title="Add Note">+</button>
 
 <script>
     window.csrfToken = '{{ csrf_token }}'

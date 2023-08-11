@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+
+from accounts.models import UserF
 
 from datetime import datetime
 # Create your models here.
@@ -7,7 +8,7 @@ from datetime import datetime
 class Notes(models.Model):
     subject = models.CharField(max_length=255, default='No Subject')
     note = models.TextField(default='Empty Note')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='all_notes')
+    owner = models.ForeignKey(UserF, on_delete=models.CASCADE, related_name='all_notes')
     favorite = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField()

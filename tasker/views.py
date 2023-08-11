@@ -3,24 +3,22 @@ from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 from django.core import serializers
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import ToDo
 
 import datetime
 import json
 # Create your views here.
 
-class ToDoView(View):
+class ToDoView(LoginRequiredMixin, View):
     def get(self, request, date):
-        if request.user.is_authenticated:
-            tasks = ToDo.objects.filter(task_date=date, owner_id=self.request.user.id)
-            
-            current_date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
-            prev_day = current_date - datetime.timedelta(days=1)
-            next_day = current_date + datetime.timedelta(days=1)
-            
-            return render(request, 'tasker/home.html', {'tasks': tasks, 'date': current_date, 'prev_day': prev_day, 'next_day': next_day})
-        return redirect(reverse('accounts:login') + f'?next={request.path}')
+        tasks = ToDo.objects.filter(task_date=date, owner_id=self.request.user.id)
+        
+        current_date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+        prev_day = current_date - datetime.timedelta(days=1)
+        next_day = current_date + datetime.timedelta(days=1)
+        
+        return render(request, 'tasker/home.html', {'tasks': tasks, 'date': current_date, 'prev_day': prev_day, 'next_day': next_day})
     def post(self, request, date):
         task = json.loads(request.body).get('task')
         new_task = ToDo.objects.create(task=task, task_date=date, owner=self.request.user)
