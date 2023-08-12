@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
+from chanotas.settings import EMAIL_HOST_USER
 from .models import UserF, SignUpQueue
 
 import json
@@ -44,7 +45,7 @@ def send_verification_code(queued_user, next=False):
             
             Here is your verification code: {v_code}
             ''',
-            'zezo.09@hotmail.com',
+            EMAIL_HOST_USER,
             [queued_user.email],
             fail_silently=False,
             html_message=html_message
