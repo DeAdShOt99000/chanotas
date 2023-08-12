@@ -30,7 +30,7 @@ header {
 
 .brand {
     position: relative;
-    z-index: 3;
+    z-index: 4;
     cursor: pointer;
     font-family: 'Rampart One';
     font-size: 4rem;

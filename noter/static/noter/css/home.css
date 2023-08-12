@@ -6,7 +6,7 @@ body {
 
 .app-name {
     position: relative;
-    z-index: 3;
+    z-index: 4;
     cursor: pointer;
     font-family: pacifico, verdana;
     font-size: 1.5rem;
@@ -34,7 +34,7 @@ input, button, textarea, select {
 
 #sort-by {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     cursor: pointer;
     background-color: rgb(70, 70, 70);
     color: white;

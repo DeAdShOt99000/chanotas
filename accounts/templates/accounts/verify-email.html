@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Verify Email
+{% endblock title %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'accounts/css/login-signup.css' %}">
+    <script src="{% static 'accounts/js/verify-email.js' %}" defer></script>
+{% endblock head %}
+    
+
+{% block content %}
+<header class="brand">
+
+    {% if 'chatter' in next %}
+    <span class="chatter">Chatter <span class="by">&nbsp;by&nbsp;</span></span>
+    {% elif 'noter' in next %}
+    <span class="noter">Noter <span class="by">&nbsp;by&nbsp;</span></span>
+    {% elif 'tasker' in next %}
+    <span class="tasker">Tasker <span class="by">&nbsp;by&nbsp;</span></span>
+    {% endif %}
+
+    <span class="chanotas">Chanotas</span>
+</header>
+<form class="verify-email-form" action="{% url 'accounts:signup' %}" method="post">
+    {% csrf_token %}
+    <h1 class="verify-header">- Verify your email -</h1>
+
+    <p class="verify-text">We sent a 4-digit verification code to <span>{{ email }}</span></p>
+
+    <div class="verify-input-cont">
+        <input type="text" name="v-code-input" id="v-code-input" placeholder="4-digit code" tabindex="1">
+        <span></span>
+    </div>
+    
+    <div class="submit-resend-cont">
+        <div class="resend-cont">
+            <span class="resend-cd">10</span>
+            <button class="resend"  tabindex="3" disabled>Re-send code</button>
+        </div>
+        <input type="submit" value="Verify" tabindex="2">
+    </div>
+</form>
+
+<script>
+    window.csrf = '{{ csrf_token }}'
+    window.email = '{{ email }}'
+    window.homeLink = "{% url 'home' %}"
+    window.signupLink = "{% url 'accounts:signup' %}"
+    window.resendVerificationLink = "{% url 'accounts:resed-verification' %}"
+    window.next = '{{ next }}'
+</script>
+{% endblock content %}
+    

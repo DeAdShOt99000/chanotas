@@ -21,7 +21,7 @@ body {
 .chatter-flex {
     cursor: pointer;
     position: relative;
-    z-index: 3;
+    z-index: 4;
     font-family: Amita;
     font-size: 2rem;
     color: #254441;
@@ -34,12 +34,12 @@ body {
 
 .app-name-cont .mask {
     background-color: #a3d729;
-    bottom: 7px;
+    bottom: 10px;
 }
 
 .by-chanotas-cont {
     background-color: #a3d729;
-    bottom: 5px;
+    bottom: 9px;
 }
 
 .text-bar {

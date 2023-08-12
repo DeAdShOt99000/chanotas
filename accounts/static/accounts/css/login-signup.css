@@ -1,42 +1,3 @@
-.brand {
-    font-size: 4.5rem;
-    text-align: center;
-    padding: 10px;
-}
-
-.brand .chanotas {
-    font-family: cookie;
-    color: #064789;
-    text-shadow: 3px 3px #EBF2FA;
-    text-decoration: none;
-}
-
-.brand .chatter {
-    font-family: Amita, verdana;
-    color: #254441;
-    text-shadow: 3px 3px white;
-}
-
-.brand .noter {
-    font-family: pacifico, verdana;
-    color: white;
-    text-shadow: 3px 3px black;
-}
-
-.brand .tasker {
-    font-family: 'Rampart One', verdana;
-    color: #534D41;
-    text-shadow: 2px 2px white;
-}
-
-.brand .by {
-    font-family: monospace;
-    font-size: 1.3rem;
-    vertical-align: middle;
-    color: gray;
-    text-shadow: none;
-}
-
 .center-form input {
     width: 100%;
     padding: 3px;
@@ -212,4 +173,89 @@ form.center-form input[type="submit"]:disabled {
 
 .failed {
     list-style-type: '\274C';
+}
+
+.verify-email-form {
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    row-gap: 20px;
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+}
+
+.verify-header {
+    text-shadow: 2px 2px 4px #064789;
+}
+
+.verify-text {
+    color: #2a6bad;
+    text-shadow: 1px 1px white;
+}
+
+.verify-text span {
+    color: #064789;
+    text-shadow: 1px 1px white;
+}
+
+#v-code-input {
+    padding: 5px;
+    border-radius: 6px;
+    border: 3px solid #064789;
+}
+
+.verify-input-cont {
+    position: relative;
+    width: fit-content;
+    margin: auto;
+}
+
+#v-code-input::placeholder {
+    color: #06478999;
+}
+
+.verify-input-cont span {
+    position: absolute;
+    left: 0;
+    bottom: -14px;
+    font-size: 0.7rem;
+    color: tomato;
+}
+
+.submit-resend-cont {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.resend-cont {
+    position: relative;
+}
+
+.resend-cd {
+    position: absolute;
+    top: 6px;
+    left: -22px;
+    text-shadow: 1px 1px 3px #064789;
+}
+
+.resend, input[type="submit"] {
+    cursor: pointer;
+    /* padding: 7px; */
+    border-radius: 10px;
+    color: white;
+    background-color: #064789;
+    border: 3px solid white;
+    transition: transform 0.5s ease-out;
+    height: 35px;
+    width: 150px;
+}
+
+.resend:hover, input[type="submit"]:hover {
+    transform: scale(110%);
+}
+
+.resend:disabled {
+    cursor: default;
+    opacity: 0.5;
+    transform: scale(100%);
 }

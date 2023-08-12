@@ -20,7 +20,7 @@
 
         <a class="chanotas" href="{% url 'home' %}">Chanotas</a>
     </header>
-    <form class="center-form" action="" method="post">
+    <form class="center-form" action="{% url 'accounts:verify-email' %}{% if next %}?next={{ next }}{% endif %}" method="post">
         <fieldset>
             {% csrf_token %}
             <header>- Sign Up! -</header>

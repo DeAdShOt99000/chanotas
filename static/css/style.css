@@ -33,6 +33,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-width: 70px;
     padding: 1.5px 3px;
     background-color: rgba(70, 70, 70, 0);
 }
@@ -84,6 +85,47 @@ body {
     padding: 5px;
 }
 
+/**********Branding**********/
+
+.brand {
+    font-size: 4.5rem;
+    text-align: center;
+    padding: 10px;
+}
+
+.brand .chanotas {
+    font-family: cookie;
+    color: #064789;
+    text-shadow: 3px 3px #EBF2FA;
+    text-decoration: none;
+}
+
+.brand .chatter {
+    font-family: Amita, verdana;
+    color: #254441;
+    text-shadow: 3px 3px white;
+}
+
+.brand .noter {
+    font-family: pacifico, verdana;
+    color: gray;
+    text-shadow: 3px 3px black;
+}
+
+.brand .tasker {
+    font-family: 'Rampart One', verdana;
+    color: #534D41;
+    text-shadow: 2px 2px white;
+}
+
+.brand .by {
+    font-family: monospace;
+    font-size: 1.3rem;
+    vertical-align: middle;
+    color: gray;
+    text-shadow: none;
+}
+
 .app-name-cont {
     position: relative;
 }
@@ -91,8 +133,8 @@ body {
 .by-chanotas-cont {
     position: absolute;
     left: 0;
-    bottom: 5px;
-    z-index: 1;
+    bottom: 11px;
+    z-index: 2;
     text-align: center;
     width: 105px;
     padding: 0 5px 5px 5px;
@@ -104,15 +146,15 @@ body {
 
 .app-name-cont .mask {
     position: absolute;
-    z-index: 2;
-    bottom: 7px;
+    z-index: 3;
+    bottom: 12px;
     width: 105px;
     height: 50px;
     background-color: rgb(47, 47, 47);
 }
 
 .app-name-cont:hover .by-chanotas-cont{
-    transform: translateY(28px);
+    transform: translateY(32px);
 }
 
 .by-chanotas-cont .by {

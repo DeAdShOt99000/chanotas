@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+    
+{% block content %}
+
+    <style>
+        .brand {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 4.5rem;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .brand .chanotas {
+            color: #064789;
+            text-shadow: 3px 3px #EBF2FA;
+        }
+
+        .brand .chatter {
+            color: #254441;
+            text-shadow: 3px 3px white;
+        }
+
+        .brand .noter {
+            color: gray;
+            text-shadow: 3px 3px black;
+        }
+
+        .brand .tasker {
+            color: #534D41;
+            text-shadow: 2px 2px white;
+        }
+
+        .brand .by {
+            font-family: monospace;
+            font-size: 1.3rem;
+            vertical-align: middle;
+            color: gray;
+            text-shadow: none;
+        }
+        .code-container {
+            text-align: center;
+            display: grid;
+            row-gap: 20px;
+        }
+
+        .hello-user, .v_code_p {
+            color: #2a6bad;
+            text-shadow: 2px 2px white;
+            font-size: 1.5rem;
+        }
+
+        .hello-user span {
+            color: #064789;
+            text-shadow: 2px 2px white;;
+        }
+
+        .v-code {
+            background-color: #064789;
+            color: white;
+            border: 3px solid white;
+            padding: 5px;
+            width: fit-content;
+            margin: auto;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            border-radius: 7px;
+        }
+    </style>
+
+    <header class="brand">
+
+        {% if 'chatter' in next %}
+        <span class="chatter">Chatter <span class="by">&nbsp;by&nbsp;</span></span>
+        {% elif 'noter' in next %}
+        <span class="noter">Noter <span class="by">&nbsp;by&nbsp;</span></span>
+        {% elif 'tasker' in next %}
+        <span class="tasker">Tasker <span class="by">&nbsp;by&nbsp;</span></span>
+        {% endif %}
+
+        <span class="chanotas">Chanotas</span>
+    </header>
+    <div class="code-container">
+        <h2 class="hello-user">Hello, <span>{{ first_name }}</span>!</h2>
+        <p class="v_code_p">Here is your verification code,</p>
+        <div class="v-code">{{ v_code }}</div>
+    </div>
+{% endblock content %}
+    
