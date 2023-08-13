@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-from chanotas.settings import EMAIL_HOST_USER
+from django.conf import settings
 from .models import UserF, SignUpQueue
 
 import json
@@ -17,19 +17,21 @@ users_colors = {'a': '6290C8', 'b': '9ECE9A', 'c': '5D4E6D', 'd': '9B9ECE', 'e':
 
 def send_verification_code(queued_user, next=False):
     v_code = str(random.randint(0, 9999)).zfill(4)
-    
+
     queued_user.v_code = v_code
     queued_user.save()
-    
+
     print(v_code)
-    
+
     ctx = {
         'first_name': queued_user.first_name,
         'v_code': v_code,
         'next': next
     }
     html_message = render_to_string('accounts/email-template.html', ctx)
-    
+
+    if not next:
+        next = ''
     brand = 'Chanotas'
     if 'chatter' in next:
         brand = 'Chatter'
@@ -37,15 +39,15 @@ def send_verification_code(queued_user, next=False):
         brand = 'Noter'
     elif 'tasker' in next:
         brand = 'Tasker'
-        
+
     send_mail(
             f'{brand} Email Verification',
             f'''
             Hello, {queued_user.first_name}!
-            
+
             Here is your verification code: {v_code}
             ''',
-            EMAIL_HOST_USER,
+            settings.EMAIL_HOST_USER,
             [queued_user.email],
             fail_silently=False,
             html_message=html_message
@@ -90,7 +92,7 @@ class VerifyEmail(View):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-        
+
         try:
             queued_user = SignUpQueue.objects.get(email=email)
         except:
@@ -116,14 +118,14 @@ class CheckUserEmail(View):
         data = json.loads(request.body)
         username = data.get('username')
         email = data.get('email')
-        
+
         value = username if username else email
-        
+
         if username:
             all_entries = [x[0] for x in UserF.objects.values_list('username')]
         elif email:
             all_entries = [x[0] for x in UserF.objects.values_list('email')]
-        
+
         if value in all_entries:
             return JsonResponse({'message': False}, safe=False)
         return JsonResponse({'message': True}, safe=False)
@@ -147,7 +149,7 @@ class LogIn(View):
                 return redirect(request.GET.get('next'))
             return redirect(reverse('home'))
         return render(request, 'accounts/login.html', {'incorrect': True, 'next': request.GET.get('next')})
-    
+
 def log_out(request):
     logout(request)
     next = request.GET.get('next')
