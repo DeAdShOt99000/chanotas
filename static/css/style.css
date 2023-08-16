@@ -1,19 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Amita&family=Lobster&family=Rampart+One&display=swap');
-
-@font-face {
-    font-family: 'pacifico';
-    src: url('../fonts/Pacifico-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'varela round';
-    src: url('../fonts/VarelaRound-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'cookie';
-    src: url('../fonts/Cookie-Regular.ttf');
-}
+@import url('https://fonts.googleapis.com/css2?family=Amita&family=Cookie&family=Lobster&family=Pacifico&family=Rampart+One&family=Varela+Round&display=swap');
 
 * {
     font-family: 'varela round', serif;
