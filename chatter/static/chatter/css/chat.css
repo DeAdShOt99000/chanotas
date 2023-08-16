@@ -44,6 +44,8 @@ body {
 }
 
 #chat-box {
+    display: flex;
+    flex-direction: column;
     background-color: #2544412c;
     border-radius: 20px;
     overflow: auto;
