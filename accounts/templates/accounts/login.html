@@ -6,10 +6,10 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'accounts/css/login-signup.css' %}">
 {% endblock head %}
-    
+
 {% block content %}
     <header class="brand">
-        
+
         {% if 'chatter' in next %}
         <span class="chatter">Chatter <span class="by">&nbsp;by&nbsp;</span></span>
         {% elif 'noter' in next %}
@@ -17,7 +17,7 @@
         {% elif 'tasker' in next %}
         <span class="tasker">Tasker <span class="by">&nbsp;by&nbsp;</span></span>
         {% endif %}
-            
+
         <a class="chanotas" href="{% url 'home' %}">Chanotas</a>
     </header>
     <form class="center-form" action="" method="post">
@@ -29,10 +29,10 @@
             <header>- Log in -</header>
             <ul>
                 <li>
-                    <input type="text" name="username" id="username" placeholder="Username">
+                    <input type="text" name="username" id="username" placeholder="Username" autocapitalize="none" value="{{ username }}" required>
                 </li>
                 <li>
-                    <input type="password" name="password" id="password" placeholder="Password">
+                    <input type="password" name="password" id="password" placeholder="Password" required>
                 </li>
                 <li>
                     <input type="submit" value="Log in">
@@ -42,7 +42,11 @@
         <h4 class="signup-login-switch">Don't have an account? <a href="{% url 'accounts:signup' %}{% if next %}?next={{ next }}{% endif %}">Sign Up!</a></h4>
     </form>
     <script>
-        document.querySelector('input[type="text"]:first-child').focus()
+        if (!'{{ incorrect }}'){
+            document.querySelector('input[type="text"]:first-child').focus()
+        } else {
+            document.querySelector('input[type="password"]:first-child').focus()
+        }
         const incorrectCred = document.querySelector('.incorrect-cred')
         if (incorrectCred){
             setTimeout(function(){

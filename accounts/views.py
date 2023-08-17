@@ -148,7 +148,7 @@ class LogIn(View):
             if request.GET.get('next'):
                 return redirect(request.GET.get('next'))
             return redirect(reverse('home'))
-        return render(request, 'accounts/login.html', {'incorrect': True, 'next': request.GET.get('next')})
+        return render(request, 'accounts/login.html', {'incorrect': True, 'username': username, 'next': request.GET.get('next')})
 
 def log_out(request):
     logout(request)
