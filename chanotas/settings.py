@@ -24,13 +24,13 @@ SECRET_KEY = 'django-insecure-iu#dws%_ko3$1zut^8czcbr5q0b_^7t9bi+yswrui(0d89+&5t
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# DEBUG = False
+DEBUG = False
 
-# ALLOWED_HOSTS = ['ziyad0536.pythonanywhere.com']
+ALLOWED_HOSTS = ['ziyad0536.pythonanywhere.com']
 
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'accounts.UserF'
 
