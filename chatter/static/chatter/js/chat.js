@@ -59,13 +59,13 @@
 
     const idsLst = [];
 
-    let last_msg_id = -1;
+    let last_msg_id = -2;
     function updateMsg(){
         fetch(window.chatJson + `?last-msg-id=${last_msg_id}`)
         .then(response => response.json())
         .then(data => {
-            const last_msg_id_server = data[Object.values(data).length-1].id;
-            if (last_msg_id_server != 'same'){
+            const last_msg_id_server = data[Object.values(data).length-1] ? data[Object.values(data).length-1]['id']: -1;
+            if (last_msg_id_server != 'same' && last_msg_id != -1){
                 last_msg_id = last_msg_id_server;
                 chatBox.innerHTML = '';
     

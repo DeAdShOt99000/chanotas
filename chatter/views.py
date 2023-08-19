@@ -5,6 +5,7 @@ from django.views import View
 from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 
 from accounts.views import users_colors
 from accounts.models import UserF
@@ -62,36 +63,39 @@ class HomeJSON(View):
         all_friends = request.user.friends.all()
         chat_set = request.user.received_by_set.all()
         af_dict_lst = []
-        for friend in all_friends:
-            try:
-                last_msg_details = chat_set.filter(sent_by=friend).order_by('-sent_at')[0]
-                last_msg = (last_msg_details.text, last_msg_details.sent_at, last_msg_details.id)
-            except:
-                last_msg = ('', datetime(1, 1, 1), -1)
-            
-            try:
-                not_viewed = len(chat_set.filter(sent_by=friend, viewed=False))
-            except IndexError:
-                not_viewed = None
-            
-            friend_dict = vars(friend)
-            clean_friend_dict = {
-                'id': friend_dict['id'],
-                'username': friend_dict['username'],
-                'first_name': friend_dict['first_name'].title(),
-                'last_name': friend_dict['last_name'].title(),
-                'email': friend_dict['email'],
-                'not_viewed': not_viewed,
-                'last_msg': last_msg,
-                'user_color': users_colors[friend.first_name[0:1].lower()]
-                # 'last_login': friend_dict['last_login']
-            }
-            af_dict_lst.append(clean_friend_dict)
+        if all_friends:
+            for friend in all_friends:
+                try:
+                    last_msg_details = chat_set.filter(sent_by=friend).order_by('-sent_at')[0]
+                    last_msg = (last_msg_details.text, timezone.localtime(last_msg_details.sent_at), last_msg_details.id)
+                except:
+                    last_msg = ('', datetime(1, 1, 1), -1)
+                
+                try:
+                    not_viewed = len(chat_set.filter(sent_by=friend, viewed=False))
+                except IndexError:
+                    not_viewed = None
+                
+                friend_dict = vars(friend)
+                clean_friend_dict = {
+                    'id': friend_dict['id'],
+                    'username': friend_dict['username'],
+                    'first_name': friend_dict['first_name'].title(),
+                    'last_name': friend_dict['last_name'].title(),
+                    'email': friend_dict['email'],
+                    'not_viewed': not_viewed,
+                    'last_msg': last_msg,
+                    'user_color': users_colors[friend.first_name[0:1].lower()]
+                    # 'last_login': friend_dict['last_login']
+                }
+                af_dict_lst.append(clean_friend_dict)
 
-        sorted_dict_lst = sorted(af_dict_lst, key=lambda x: x['last_msg'][1], reverse=True)
-        if sorted_dict_lst[0]['last_msg'][2] != int(request.GET.get('last-msg-id')):
-            return JsonResponse(sorted_dict_lst, safe=False)
-        return JsonResponse([{'last_msg': 'same'}], safe=False)
+            sorted_dict_lst = sorted(af_dict_lst, key=lambda x: x['last_msg'][1].date(), reverse=True)
+            
+            if sorted_dict_lst[0]['last_msg'][2] != int(request.GET.get('last-msg-id')):
+                return JsonResponse(sorted_dict_lst, safe=False)
+            return JsonResponse([{'last_msg': 'same'}], safe=False)
+        return JsonResponse([], safe=False)
     
 class ChatView(LoginRequiredMixin, View):
     def get(self, request, pk):
@@ -100,9 +104,7 @@ class ChatView(LoginRequiredMixin, View):
         except UserF.DoesNotExist:
             return HttpResponse("<h1>Doesn't exist.</h1>")
         
-        chat_history = Chat.objects.filter(sent_by=request.user, received_by=friend).order_by('-sent_at')
-        
-        return render(request, 'chatter/chat.html', {'friend': friend, 'chat_history': chat_history, 'user_color': users_colors[friend.first_name[0:1].lower()]})
+        return render(request, 'chatter/chat.html', {'friend': friend, 'user_color': users_colors[friend.first_name[0:1].lower()]})
         
     def post(self, request, pk):
         try:
@@ -129,18 +131,20 @@ class ChatJSON(View):
         chat_history = Chat.objects.filter(query).order_by('sent_at')
         
         ch_dict_lst = []
-        for chat in chat_history:
-            date_time = clean_dt(chat.sent_at)
-            dict_entry = vars(chat)
-            del dict_entry['_state']
-            dict_entry.update({
-                'date': date_time[0],
-                'time': date_time[1]
-            })
-            ch_dict_lst.append(dict_entry)
-        if ch_dict_lst[-1]['id'] != int(request.GET.get('last-msg-id')):
-            return JsonResponse(ch_dict_lst, safe=False)
-        return JsonResponse([{'id': 'same'}], safe=False)
+        if chat_history:
+            for chat in chat_history:
+                date_time = clean_dt(timezone.localtime(chat.sent_at))
+                dict_entry = vars(chat)
+                del dict_entry['_state']
+                dict_entry.update({
+                    'date': date_time[0],
+                    'time': date_time[1]
+                })
+                ch_dict_lst.append(dict_entry)
+            if ch_dict_lst[-1]['id'] != int(request.GET.get('last-msg-id')):
+                return JsonResponse(ch_dict_lst, safe=False)
+            return JsonResponse([{'id': 'same'}], safe=False)
+        return JsonResponse([], safe=False)
     
 def tagAsViewed(request):
     if request.method == 'POST':

@@ -150,14 +150,16 @@
 
     addFriendBtn.onclick = toggleBox;
 
-    let last_msg_id = -1;
+    const chats = document.getElementById('chats');
+
+    let last_msg_id = -2;
     function updateHome(){
         fetch(window.homeJsonLink + `?last-msg-id=${last_msg_id}`)
         .then(response => response.json())
         .then(data => {
-            if (data[0]['last_msg'] != 'same'){
-                last_msg_id = data[0]['last_msg'][2];
-                const chats = document.getElementById('chats');
+            const last_msg = data[0] ? data[0]['last_msg']: -1;
+            if (last_msg != 'same' && last_msg_id != -1){
+                last_msg_id = last_msg != -1 ? last_msg[2]: -1;
                 chats.innerHTML = '';
     
                 let friend;

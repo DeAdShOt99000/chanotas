@@ -1,8 +1,8 @@
 from django.db import models
+from django.utils import timezone
 
 from accounts.models import UserF
 
-from datetime import datetime
 # Create your models here.
 
 class Notes(models.Model):
@@ -15,6 +15,6 @@ class Notes(models.Model):
     
     def save(self, keep_updated_at=False, *args, **kwargs):
         if not keep_updated_at:
-            self.updated_at = datetime.now()
+            self.updated_at = timezone.now()
     
         super().save(*args, **kwargs)
