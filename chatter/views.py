@@ -64,17 +64,16 @@ class HomeJSON(View):
         af_dict_lst = []
         for friend in all_friends:
             try:
-                last_msg = chat_set.filter(sent_by=friend).order_by('-sent_at')[0]
-                last_msg = last_msg.text, last_msg.sent_at
-                # print(last_msg)
+                last_msg_details = chat_set.filter(sent_by=friend).order_by('-sent_at')[0]
+                last_msg = (last_msg_details.text, last_msg_details.sent_at, last_msg_details.id)
             except:
-                last_msg = '', datetime(1, 1, 1)
+                last_msg = ('', datetime(1, 1, 1), -1)
             
             try:
                 not_viewed = len(chat_set.filter(sent_by=friend, viewed=False))
             except IndexError:
                 not_viewed = None
-                
+            
             friend_dict = vars(friend)
             clean_friend_dict = {
                 'id': friend_dict['id'],
@@ -88,10 +87,11 @@ class HomeJSON(View):
                 # 'last_login': friend_dict['last_login']
             }
             af_dict_lst.append(clean_friend_dict)
-        # print(af_dict_lst)
+
         sorted_dict_lst = sorted(af_dict_lst, key=lambda x: x['last_msg'][1], reverse=True)
-        # print(sorted_dict_lst)
-        return JsonResponse(sorted_dict_lst, safe=False)
+        if sorted_dict_lst[0]['last_msg'][2] != int(request.GET.get('last-msg-id')):
+            return JsonResponse(sorted_dict_lst, safe=False)
+        return JsonResponse([{'last_msg': 'same'}], safe=False)
     
 class ChatView(LoginRequiredMixin, View):
     def get(self, request, pk):
@@ -138,13 +138,13 @@ class ChatJSON(View):
                 'time': date_time[1]
             })
             ch_dict_lst.append(dict_entry)
-        return JsonResponse(ch_dict_lst, safe=False)
+        if ch_dict_lst[-1]['id'] != int(request.GET.get('last-msg-id')):
+            return JsonResponse(ch_dict_lst, safe=False)
+        return JsonResponse([{'id': 'same'}], safe=False)
     
 def tagAsViewed(request):
     if request.method == 'POST':
-        # ids_lst = request.POST.get('ids')
         ids_lst = json.loads(request.body)['ids']
-        # print(ids_lst)
         for id in ids_lst:
             chat = Chat.objects.get(pk=id)
             chat.viewed = True
