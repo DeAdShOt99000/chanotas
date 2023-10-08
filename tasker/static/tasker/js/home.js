@@ -8,6 +8,16 @@
     const newTask = document.querySelector('#new-task')
     const noAvailTasks = document.querySelector('.no-avail-tasks')
     
+    function rmTaskFunc(task){
+        task.addEventListener('click', function(event){
+            fetch(`delete/${event.target.id.substring(8)}`)
+            .then(function(){
+                tasksContainer.removeChild(event.target.parentElement)
+                doneCount()
+            })
+        })
+    }
+
     function addCheckbox(taskIdE, taskE, is_doneE){
         const container = document.createElement('div')
         container.className = 'single-task-cont'
@@ -28,14 +38,34 @@
         button.className = 'rm-task'
         button.innerHTML = '&#10060;'
         button.title = 'Remove this Task'
+        rmTaskFunc(button)
         
         container.appendChild(input)
         container.appendChild(label)
         container.appendChild(button)
         
+        container.onchange = function(){
+            updateTask(selectDate.value, taskIdE)
+        }
+        
         tasksContainer.appendChild(container)
         
         return container
+    }
+
+    function updateTask(date, update_task_id){
+        doneCount()
+
+        fetch(`tasker-tasks-json/${date}`, {
+            method: 'POST',
+            body: JSON.stringify({
+                update_task_id
+            }),
+            headers: {
+                'Content-type': 'application/json',
+                'X-CSRFToken': window.csrf
+            }
+        })
     }
     
     function sendNewTask(taskText) {
@@ -52,9 +82,8 @@
             })
             .then(response => response.json())
             .then(data => {
-                const task = addCheckbox(data.taskIDE, data.taskE, data.is_doneE)
-                rmTaskFunc(task.querySelector('.rm-task'))
-                doneCount(document.querySelectorAll('.all-tasks'))
+                addCheckbox(data.taskIDE, data.taskE, data.is_doneE)
+                doneCount()
                 newTask.value = ''
                 noAvailTasks.style.display = 'none'
             })
@@ -63,16 +92,6 @@
         newTask.style.display = 'none'
     }
 
-    function rmTaskFunc(task){
-        task.addEventListener('click', function(event){
-            fetch(`delete/${event.target.id.substring(8)}`)
-            .then(function(){
-                tasksContainer.removeChild(event.target.parentElement)
-                doneCount(document.querySelectorAll('.all-tasks'))
-            })
-        })
-    }
-    
     selectDate.addEventListener('change', function(){
         window.location.href = selectDate.value
     })
@@ -119,34 +138,16 @@
                 
                 addCheckbox(taskIdE, taskE, is_doneE)            
             }
-            
-            doneCount(document.querySelectorAll('.all-tasks'))
-            
-            document.querySelectorAll('.rm-task').forEach(task => {rmTaskFunc(task)})
-            
-            document.querySelectorAll('.all-tasks').forEach(function(task) {
-                task.addEventListener('change', function(){
-                    doneCount(document.querySelectorAll('.all-tasks'))
-    
-                    fetch(`tasker-tasks-json/${selectDate.value}`, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            update_task_id: this.getAttribute('name')
-                        }),
-                        headers: {
-                            'Content-type': 'application/json',
-                            'X-CSRFToken': window.csrf
-                        }
-                    })
-                })
-            });
+            doneCount()
         } else {
             noAvailTasks.style.display = 'block'
         };
     });
 
     const doneCountContainer = document.querySelector('.done-count-container')
-    function doneCount(allTasks){
+    
+    function doneCount(){
+        let allTasks = document.querySelectorAll('.all-tasks')
         if (allTasks.length){
             let is_doneE_count = 0;
             for (let i=0; i < allTasks.length; i++){
