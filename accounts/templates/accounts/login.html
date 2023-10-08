@@ -35,13 +35,28 @@
                     <input type="password" name="password" id="password" placeholder="Password" required>
                 </li>
                 <li>
-                    <input type="submit" value="Log in">
+                    <input type="submit" value="Log in" disabled>
                 </li>
             </ul>
         </fieldset>
         <h4 class="signup-login-switch">Don't have an account? <a href="{% url 'accounts:signup' %}{% if next %}?next={{ next }}{% endif %}">Sign Up!</a></h4>
     </form>
     <script>
+        const loginBtn = document.querySelector("input[type='submit']")
+        const username = document.getElementById("username")
+        const password = document.getElementById("password")
+
+        function enableLogin(){
+            if (username.value && password.value){
+                loginBtn.disabled = false
+            } else {
+                loginBtn.disabled = true
+            }
+        }
+        
+        username.oninput = enableLogin
+        password.oninput = enableLogin
+
         if (!'{{ incorrect }}'){
             document.querySelector('input[type="text"]:first-child').focus()
         } else {
